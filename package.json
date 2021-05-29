@@ -34,7 +34,9 @@
     "@vuex-orm/core": ">=0.36.0"
   },
   "dependencies": {
-    "axios": "latest"
+    "axios": "^0.21.1",
+    "babel-loader": "^8.2.2",
+    "jsonapi-serializer": "^3.6.7"
   },
   "devDependencies": {
     "@babel/core": "latest",
@@ -47,6 +49,7 @@
     "jest": "latest",
     "vue": "latest",
     "vuex": "latest",
-    "webpack": "latest"
+    "webpack": "latest",
+    "webpack-cli": "^4.7.0"
   }
 }

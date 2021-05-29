@@ -1,5 +1,6 @@
 import Utils from '../Utils';
 import Response from './Response';
+var JSONAPISerializer = require('jsonapi-serializer').Serializer;
 
 export default class {
   /**
@@ -16,7 +17,6 @@ export default class {
     if (!this.model.axios) {
       return Utils.error('The axios instance is not registered. Please register the axios instance to the model.');
     }
-
     return this.model.axios;
   }
 
@@ -78,6 +78,16 @@ export default class {
       method: 'delete', url,
       ...config,
     });
+  }
+
+  /**
+   * Performs data serialization
+   */
+  serialize(data = {}) {
+    return new JSONAPISerializer(this.model.entity, {
+      attributes: Object.keys(data),
+      keyForAttribute: 'underscore_case',
+    }).serialize(data);
   }
 
   /**
