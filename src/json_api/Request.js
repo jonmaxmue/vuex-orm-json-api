@@ -1,5 +1,7 @@
 import Utils from '../Utils';
 import Response from './Response';
+import Filter from './Filter';
+import Include from './Include';
 var JSONAPISerializer = require('jsonapi-serializer').Serializer;
 
 export default class {
@@ -24,6 +26,9 @@ export default class {
    * Performs an HTTP `GET`.
    */
   get(url, config = {}) {
+    url += ('include' in config) ? new Include().stringify() : '';
+    url += ('filter' in config) ? new Filter().stringify() : '';
+
     return this.request({
       ...this.model.globalJsonApiConfig,
       ...this.model.jsonApiConfig,
