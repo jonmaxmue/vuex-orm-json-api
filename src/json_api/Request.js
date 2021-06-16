@@ -1,7 +1,8 @@
 import Utils from '../Utils';
 import Response from './Response';
-import Filter from './Filter';
-import Include from './Include';
+import Filter from '../url/Fragment/Filter';
+import Include from '../url/Fragment/Include';
+import Url from '../url/Url';
 var JSONAPISerializer = require('jsonapi-serializer').Serializer;
 
 export default class {
@@ -26,8 +27,7 @@ export default class {
    * Performs an HTTP `GET`.
    */
   get(url, config = {}) {
-    url += ('include' in config) ? new Include().stringify() : '';
-    url += ('filter' in config) ? new Filter().stringify() : '';
+    url = new Include(new Filter(new Url(url, config))).stringify();
 
     return this.request({
       ...this.model.globalJsonApiConfig,
