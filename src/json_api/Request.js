@@ -89,10 +89,12 @@ export default class {
    * Performs data serialization
    */
   serialize(data = {}) {
-    return new JSONAPISerializer(this.model.entity, {
+    var test = new JSONAPISerializer(this.model.entity, {
       attributes: Object.keys(data),
       keyForAttribute: 'underscore_case',
+      pluralizeType: false,
     }).serialize(data);
+    return test;
   }
 
   /**
