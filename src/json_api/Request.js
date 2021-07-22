@@ -101,6 +101,11 @@ export default class {
       attributes: Object.keys(data),
       keyForAttribute: 'underscore_case',
       pluralizeType: false,
+      nullIfMissing: true,
+      transform: function (record) {
+        // Remove null attributes
+        return Object.entries(record).reduce((a, [k, v]) => (v === null ? a : (a[k]=v, a)), {});
+      },
     }).serialize(data);
     return test;
   }
