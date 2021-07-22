@@ -12,6 +12,6 @@ export default class {
    * Url start
    */
   stringify() {
-    return this.endpoint;
+    return this.endpoint + '/';
   }
 }

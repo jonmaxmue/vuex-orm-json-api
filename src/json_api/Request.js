@@ -41,6 +41,8 @@ export default class {
    * Performs an HTTP `POST`.
    */
   post(url, data = {}, config = {}) {
+    url = new Url(url, config).stringify();
+
     return this.request({
       ...this.model.globalJsonApiConfig,
       ...this.model.jsonApiConfig,
@@ -53,6 +55,8 @@ export default class {
    * Performs an HTTP `PUT`.
    */
   put(url, data = {}, config = {}) {
+    url = new Url(url, config).stringify();
+
     return this.request({
       ...this.model.globalJsonApiConfig,
       ...this.model.jsonApiConfig,
@@ -65,6 +69,8 @@ export default class {
    * Performs an HTTP `PATCH`.
    */
   patch(url, data = {}, config = {}) {
+    url = new Url(url, config).stringify();
+
     return this.request({
       ...this.model.globalJsonApiConfig,
       ...this.model.jsonApiConfig,
@@ -77,6 +83,8 @@ export default class {
    * Performs an HTTP `DELETE`.
    */
   delete(url, config = {}) {
+    url = new Url(url, config).stringify();
+
     return this.request({
       ...this.model.globalJsonApiConfig,
       ...this.model.jsonApiConfig,
