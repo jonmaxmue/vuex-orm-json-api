@@ -18,9 +18,9 @@ export default class extends Fragment {
   stringify() {
     let filter = '';
     for (const [key, value] of Object.entries(this.filter)) {
-      filter += `filter[${key}]=${value}`;
+      filter += `filter[${key}]=${value}&`;
     }
-
+    filter = filter.slice(0, -1);
     return this.add(this.Url.stringify(), filter);
   }
 }
