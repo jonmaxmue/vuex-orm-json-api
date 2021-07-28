@@ -26,7 +26,7 @@ export default class {
   /**
    * Performs an HTTP `GET`.
    */
-  get(url, config = {}) {
+  get(url, config = {}, map=true) {
     url = new Include(new Filter(new Url(url, config))).stringify();
 
     return this.request({
@@ -34,13 +34,13 @@ export default class {
       ...this.model.jsonApiConfig,
       method: 'get', url,
       ...config,
-    });
+    }, map);
   }
 
   /**
    * Performs an HTTP `POST`.
    */
-  post(url, data = {}, config = {}) {
+  post(url, data = {}, config = {}, map=true) {
     url = new Url(url, config).stringify();
 
     return this.request({
@@ -48,13 +48,14 @@ export default class {
       ...this.model.jsonApiConfig,
       method: 'post', url, data,
       ...config,
-    });
+
+    }, map);
   }
 
   /**
    * Performs an HTTP `PUT`.
    */
-  put(url, data = {}, config = {}) {
+  put(url, data = {}, config = {}, map=true) {
     url = new Url(url, config).stringify();
 
     return this.request({
@@ -62,13 +63,13 @@ export default class {
       ...this.model.jsonApiConfig,
       method: 'put', url, data,
       ...config,
-    });
+    }, map);
   }
 
   /**
    * Performs an HTTP `PATCH`.
    */
-  patch(url, data = {}, config = {}) {
+  patch(url, data = {}, config = {}, map=true) {
     url = new Url(url, config).stringify();
 
     return this.request({
@@ -76,13 +77,13 @@ export default class {
       ...this.model.jsonApiConfig,
       method: 'patch', url, data,
       ...config,
-    });
+    }, map);
   }
 
   /**
    * Performs an HTTP `DELETE`.
    */
-  delete(url, config = {}) {
+  delete(url, config = {}, map=true) {
     url = new Url(url, config).stringify();
 
     return this.request({
@@ -90,7 +91,7 @@ export default class {
       ...this.model.jsonApiConfig,
       method: 'delete', url,
       ...config,
-    });
+    }, map);
   }
 
   /**
@@ -113,7 +114,10 @@ export default class {
   /**
    * Performs an API request: Awaits an axios request, gets the axios response, and awaits the database commit.
    */
-  async request(config) {
-    return await new Response(this.model, await this.axios.request(config), config).commit();
+  async request(config, map) {
+    if (map) {
+      return await new Response(this.model, await this.axios.request(config), config).commit();
+    }
+    return await this.axios.request(config);
   }
 }
