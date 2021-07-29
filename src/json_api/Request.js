@@ -98,17 +98,32 @@ export default class {
    * Performs data serialization
    */
   serialize(data = {}) {
-    var test = new JSONAPISerializer(this.model.entity, {
-      attributes: Object.keys(data),
-      keyForAttribute: 'underscore_case',
-      pluralizeType: false,
-      nullIfMissing: true,
-      transform: function (record) {
+
+    var itemProperties = item => {
+      return {ref: 'id',
+        typeForAttribute: function (attribute, data) {
+          return data.type;
+        },
+        attributes: Object.keys(item),
+        keyForAttribute: 'underscore_case',
+        pluralizeType: false,
+        nullIfMissing: true,
+        transform: function (record) {
         // Remove null attributes
-        return Object.entries(record).reduce((a, [k, v]) => (v === null ? a : (a[k]=v, a)), {});
-      },
-    }).serialize(data);
-    return test;
+          return Object.entries(record).reduce((a, [k, v]) => (v === null ? a : (a[k]=v, a)), {});
+        }};
+    };
+
+    var options = itemProperties(data);
+    // only for two dimensions of items serialization
+    for (const [key, value] of Object.entries(data)) {
+      if (value && typeof value === 'object' && 'type' in value) {
+        options[key] = itemProperties(value);
+      }
+    }
+
+
+    return new JSONAPISerializer(this.model.entity, options).serialize(data);
   }
 
   /**
