@@ -1,6 +1,6 @@
 {
-  "name": "vuex-orm-json-api",
-  "version": "0.9.7",
+  "name": "@lunity-dev/vuex-orm-json-api",
+  "version": "1.0.0.",
   "description": "A JSON:API adapter for Vuex ORM.",
   "module": "src/index.js",
   "scripts": {
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/scalient/vuex-orm-json-api.git"
+    "url": "git+https://github.com/jonmaxmue/vuex-orm-json-api.git"
   },
   "keywords": [
     "vue",
@@ -23,8 +23,12 @@
     "axios",
     "json-api"
   ],
-  "author": "Roy Liu",
-  "license": "Apache-2.0",
+  "author": "Jonas Müller",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jonmaxmue/vuex-orm-json-api/issues"
+  },
+  "homepage": "https://github.com/jonmaxmue/vuex-orm-json-api#readme",
   "jest": {
     "transform": {
       "^.+\\.jsx?$": "babel-jest"
