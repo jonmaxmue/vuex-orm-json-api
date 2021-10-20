@@ -1,4 +1,4 @@
-import Fragment from '../Fragment';
+import Fragment from '.';
 
 export default class extends Fragment {
   /**
