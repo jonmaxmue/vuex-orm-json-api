@@ -102,7 +102,7 @@ export default class {
     var itemProperties = item => {
       return {ref: 'id',
         typeForAttribute: function (attribute, data) {
-          return data.type;
+          return data.typeForSerialization;
         },
         attributes: Object.keys(item),
         keyForAttribute: 'underscore_case',
@@ -117,12 +117,10 @@ export default class {
     var options = itemProperties(data);
     // only for two dimensions of items serialization
     for (const [key, value] of Object.entries(data)) {
-      if (value && typeof value === 'object' && 'type' in value) {
+      if (value && typeof value === 'object' && 'typeForSerialization' in value) {
         options[key] = itemProperties(value);
       }
     }
-
-
     return new JSONAPISerializer(this.model.entity, options).serialize(data);
   }
 
