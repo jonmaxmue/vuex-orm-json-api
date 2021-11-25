@@ -19,7 +19,6 @@ export default class {
 
     let includedData = data.included || [];
     includedData.forEach((data) => this.transformResource(data, insertionStore));
-
     return insertionStore;
   }
 
