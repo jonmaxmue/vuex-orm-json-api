@@ -76,7 +76,7 @@ export default class {
       });
     }
 
-    if (data.relationships && data.attributes) {
+    if (data.relationships) {
       Object.entries(data.relationships).forEach(([relationName, data]) => {
         // Convert JSON:API casing to Vuex ORM casing and look up the relation.
         relationName = this.resourceToEntityCase(relationName);
