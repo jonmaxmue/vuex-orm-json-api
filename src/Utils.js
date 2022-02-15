@@ -8,7 +8,6 @@ export default class {
 
   static modelFor(database, type) {
     const model = database.models()[type];
-
     if (!model) {
       throw this.error(`Couldn't find the model for entity type \`${type}\``);
     }
