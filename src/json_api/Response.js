@@ -23,7 +23,7 @@ export default class {
     let primaryData = responseData && responseData.data;
 
     if (primaryData) {
-      insertionStore = this.documentTransformer.transform(responseData);
+      insertionStore = await this.documentTransformer.transform(responseData);
     }
 
     let multiplicity = this.config.multiplicity;
@@ -45,7 +45,6 @@ export default class {
         if (!(primaryData instanceof Array) || !primaryData) {
           throw Utils.error('Expected an array JSON:API response, but got an object or nothing instead');
         }
-
         return await this.commitResources(database, primaryData, insertionStore, scope);
       case 'one':
         if (primaryData instanceof Array || !primaryData) {

@@ -3,8 +3,8 @@ import Utils from '../Utils';
 
 export default class extends RelationTransformer {
   transform(data, output, selfId = null, insertionStore = null) {
-    this.constructor.checkMany(data);
 
+    this.constructor.checkMany(data);
     let selfType = this.relation.model.entity;
     let relatedModel = this.relation.related;
     let pivot = this.relation.pivot;

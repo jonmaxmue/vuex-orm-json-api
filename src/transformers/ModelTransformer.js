@@ -6,13 +6,16 @@ import HasManyRelationTransformer from './HasManyRelationTransformer';
 import HasManyThroughRelationTransformer from './HasManyThroughRelationTransformer';
 import HasOneRelationTransformer from './HasOneRelationTransformer';
 import MorphToRelationTransformer from './MorphToRelationTransformer';
+import RequestRelated from '../relations/RequestRelated';
+import Relation from '../relations/Relation';
 
 export default class {
   constructor(model, config) {
     this.relationTransformers = {};
     this.attributeTransformers = {};
     this.resourceToEntityCase = config.resourceToEntityCase;
-
+    this.requestRelated = new RequestRelated(model.database(), model, config)
+  
     let {
       HasOne, BelongsTo, HasMany, HasManyBy, HasManyThrough, BelongsToMany, MorphTo, MorphOne, MorphMany, MorphToMany,
       MorphedByMany, Attr, String, Number, Boolean, Uid,
@@ -60,7 +63,6 @@ export default class {
 
   transform(data, output, insertionStore) {
     const id = data.id;
-
     this.attributeTransformers.id.transform(id, output);
 
     if (data.attributes) {
@@ -84,6 +86,12 @@ export default class {
         let transformer = this.relationTransformers[relationName];
 
         if (transformer) {
+
+          if("data" in data){
+            let relatedType = data.data instanceof Array ? data.data[0].type : data.data.type;
+            this.requestRelated.addRelation(new Relation(relationName, relatedType, data.links));
+          }
+          
           transformer.transform(data.data, output, id, insertionStore);
         }
       });

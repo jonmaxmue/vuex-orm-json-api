@@ -28,7 +28,7 @@ export default class {
    */
   get(url, config = {}, map=true) {
     url = new Include(new Filter(new Url(url, config))).stringify();
-
+    console.log(url, config);
     return this.request({
       ...this.model.globalJsonApiConfig,
       ...this.model.jsonApiConfig,
@@ -42,7 +42,6 @@ export default class {
    */
   post(url, data = {}, config = {}, map=true) {
     url = new Url(url, config).stringify();
-
     return this.request({
       ...this.model.globalJsonApiConfig,
       ...this.model.jsonApiConfig,
